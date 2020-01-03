@@ -22,12 +22,17 @@ export default class HomeScreen extends Component {
     fontLoaded: null
   }
   async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
-      'lilyscriptone': require('../assets/fonts/LilyScriptOne-Regular.ttf'),
-      'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
-    });
-    this.setState({ fontLoaded: true });
+    try{
+      await Font.loadAsync({
+        'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+        'lilyscriptone': require('../assets/fonts/LilyScriptOne-Regular.ttf'),
+        'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
+      });
+      this.setState({ fontLoaded: true });
+      }
+    catch(err){
+      console.log(err);
+    }
   }
   render() {
     return (

@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import * as Font from 'expo-font';
+import { ScrollView } from 'react-native-gesture-handler';
 
 //Component Import
-import VeriCode from '../components/VeriCode';
+import  LoginForm from '../components/LoginForm';
+
 
 
 /*
@@ -37,7 +39,7 @@ export default class SignInScreen extends React.Component {
 
 
           {/* Top Logo View */}
-          <View style={{width: '100%'}}>
+          <ScrollView style={{width: '100%', paddingTop: 100}}>
             {
               this.state.fontLoaded ?
               (
@@ -57,17 +59,18 @@ export default class SignInScreen extends React.Component {
               ):null
             }
 
+            {/* Login Form  */}
+            <View style={{marginTop: 120}}>
+              <LoginForm navigation={this.props.navigation}/>
+            </View>
+          </ScrollView>
+
+          <View style={{paddingBottom: 10}}>
+            <Text style={{fontSize: 13, color: '#565656'}}>Don't have an account? <Text style={{color: '#05668D'}}> Sign up</Text></Text>
           </View>
-
-          {/* Vericode Component */}
-          <View style={{marginTop: 50}}>
-            <VeriCode navigation={this.props.navigation}/>
-          </View>
-
-
-
 
         </KeyboardAvoidingView>
+        
       </View>
     );
    }
