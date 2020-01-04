@@ -21,7 +21,6 @@ export default class SignUpForm extends Component {
     return (
       <View style={styles.container}>
         {/* Email, password, password confirmation Inputs*/}
-        <ScrollView>
           <Input
             containerStyle={{width: 300}}
             placeholder='Email'
@@ -34,7 +33,7 @@ export default class SignUpForm extends Component {
           <Input
             containerStyle={{width: 300}}
             placeholder='Password'
-            leftIcon={<Octicons name='mail' size={30} color='#00A896'/>}
+            leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
             leftIconContainerStyle={{padding: 5}}
             onChangeText={(email) => this.setState({email})}
             inputContainerStyle={styles.formContent}
@@ -43,13 +42,22 @@ export default class SignUpForm extends Component {
           <Input
             containerStyle={{width: 300}}
             placeholder='Confirm Password'
-            leftIcon={<Octicons name='mail' size={30} color='#00A896'/>}
+            leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
             leftIconContainerStyle={{padding: 5}}
             onChangeText={(email) => this.setState({email})}
             inputContainerStyle={styles.formContent}
             secureTextEntry={true}
             />
-        </ScrollView>
+          <Button
+              title="Sign Up"
+              raised
+              buttonStyle={{width: 150, backgroundColor: '#00A896'}}
+              containerStyle={{margin: 20}}
+              onPress={() => this.props.navigation.navigate('Home')}
+              iconRight
+              buttonStyle={{width: 200, backgroundColor: '#00A896'}}
+              icon={<SimpleLineIcons name='user' size={20} style={styles.buttonIcon} color='#ffff' />}
+              />
       </View>
     );
   }

@@ -62,7 +62,7 @@ export default class SignInScreen extends React.Component {
 
             {/* Login Form  */}
             <View style={{marginTop: 120}}>
-              <SignUpForm />
+              <LoginForm />
             </View>
           </ScrollView>
 
