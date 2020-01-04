@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 //Component Import
 import  LoginForm from '../components/LoginForm';
+import SignUpForm from '../components/SigUpForm';
 
 
 
@@ -61,7 +62,7 @@ export default class SignInScreen extends React.Component {
 
             {/* Login Form  */}
             <View style={{marginTop: 120}}>
-              <LoginForm navigation={this.props.navigation}/>
+              <SignUpForm />
             </View>
           </ScrollView>
 
