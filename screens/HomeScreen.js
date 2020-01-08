@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import NavBar from '../components/NavBar';
-
+import Wcarousel from '../components/Wcarousel';
 /*
 HomeScreen
 -------------
@@ -39,6 +39,10 @@ export default class HomeScreen extends Component {
       <View style={styles.background}>
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
           <NavBar />
+          
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+            <Wcarousel />
+          </View>
         </KeyboardAvoidingView>
       </View>
     );

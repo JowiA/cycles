@@ -36,11 +36,11 @@ export default class SignInScreen extends React.Component {
   render(){
     return (
       <View style={styles.background}>
-        <KeyboardAvoidingView behavior='padding' style={styles.container}>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
 
           {/* Top Logo View */}
-          <ScrollView style={{width: '100%', paddingTop: 100}}>
+          <View style={{width: '100%'}}>
             {
               this.state.fontLoaded ?
               (
@@ -62,9 +62,9 @@ export default class SignInScreen extends React.Component {
 
             {/* Login Form  */}
             <View style={{marginTop: 120}}>
-              <LoginForm />
+              <LoginForm navigation={this.props.navigation}/>
             </View>
-          </ScrollView>
+          </View>
 
           <View style={{paddingBottom: 10}}>
             <Text style={{fontSize: 13, color: '#565656'}}>Don't have an account? <Text style={{color: '#05668D'}}> Sign up</Text></Text>
