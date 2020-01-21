@@ -31,7 +31,7 @@ export default class SignInScreen extends React.Component {
     });
     this.setState({ fontLoaded: true });
   }
-
+  
   render(){
     return (
       <View style={styles.background}>
@@ -68,7 +68,7 @@ export default class SignInScreen extends React.Component {
           <Text  onPress={() => this.props.navigation.navigate('SignUp')} style={{fontSize: 13, color: '#565656', paddingBottom: 10}}>
               Don't have an account? 
             <Text style={{color: '#05668D'}}>
-              Sign up
+              {' '}Sign up
             </Text></Text>
 
 

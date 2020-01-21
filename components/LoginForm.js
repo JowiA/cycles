@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Octicons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
-
+import firebase from '../firebase';
 
 /*
   **Prompts user for verification and requests verification code for login
@@ -17,8 +17,7 @@ export default class LoginForm extends Component {
     passwordView: false,
     buttonLoader: true
   }
-  login = (e) => {
-  }
+  
   changeView = () => {this.setState({passwordView: true})}
   render() {
     return (

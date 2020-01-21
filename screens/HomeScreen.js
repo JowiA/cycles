@@ -63,7 +63,7 @@ export default class HomeScreen extends Component {
         <NavBar />
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
           <ScrollView>
-            <MyCycles />
+            <MyCycles navigation={this.props.navigation}/>
           </ScrollView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
             <Wcarousel data={data}/>
@@ -85,7 +85,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffff',
     marginBottom: 20,
     justifyContent: 'center'
-
-
   },
 });

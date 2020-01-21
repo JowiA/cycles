@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Octicons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
+import firebase from 'firebase';
 
 /*
   **Prompts user for verification and requests verification code for login
@@ -16,7 +17,13 @@ export default class LoginForm extends Component {
     passwordView: false,
     buttonLoader: true
   }
-  login = (e) => {
+  SignUp = (email, password) => {
+    try {
+      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password);
+      this.props.navigation.navigate('SignIn');
+    } catch (error) {
+      console.log(error.toString(error));
+    }
   }
   changeView = () => {this.setState({passwordView: true})}
   render() {
@@ -59,8 +66,8 @@ export default class LoginForm extends Component {
               raised
               buttonStyle={{ backgroundColor: '#00A896' }}
               containerStyle={{ width: 150, margin: 20, alignSelf: 'center'}}
-              onPress={() => this.props.navigation.navigate('Home')}
-              icon={<AntDesign name='checkcircle' size={20} style={styles.buttonIcon} color='#ffff'/>}
+              onPress={this.SignUp}
+              icon={<SimpleLineIcons name='check' size={20} style={styles.buttonIcon} color='#ffff'/>}
               iconRight
               />
 

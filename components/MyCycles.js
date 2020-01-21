@@ -67,6 +67,7 @@ export default class MyCyles extends Component {
               title="Scan QR"
               raised
               buttonStyle={{backgroundColor: '#00A896'}}
+              onPress={() => this.props.navigation.navigate('Scanner')}
               icon={<AntDesign name='qrcode' size={20} style={styles.buttonIcon} color='#ffff'  />}
               iconRight
               />
