@@ -68,7 +68,7 @@ export default class LoginForm extends Component {
               />
         }
         <View style={{paddingBottom: 10}}>
-            <Text style={{fontSize: 13, color: '#05668D'}}>Forgot your password?</Text>
+            <Text style={{fontSize: 13, color: '#05668D'}} onPress={() => this.props.navigation.navigate('Recovery')}>Forgot your password?</Text>
           </View>
 
       </View>

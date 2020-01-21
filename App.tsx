@@ -6,12 +6,13 @@ import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SigUpScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import RecoveryScreen from './screens/RecoveryScreen';
 
 
 
 const AppStack = createStackNavigator({ Home: HomeScreen, Settings: SettingsScreen }, { defaultNavigationOptions: { header: null} });
 
-const AuthStack = createStackNavigator({ SignIn: SignInScreen, SignUp: SignUpScreen }, { defaultNavigationOptions: { header: null} });
+const AuthStack = createStackNavigator({ SignIn: SignInScreen, SignUp: SignUpScreen, Recovery: RecoveryScreen }, { defaultNavigationOptions: { header: null} });
 
 export default AppContainer =
   createAppContainer(

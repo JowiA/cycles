@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView} from 'react-native';
 import { Input, Button } from 'react-native-elements';
-import { Octicons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
+import { Octicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 
 /*
   **Prompts user for verification and requests verification code for login
@@ -9,14 +9,9 @@ import { Octicons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
   output: provide user acces
 */
 
-export default class LoginForm extends Component {
+export default class RecoveryScreen extends Component {
   state={
-    email: '',
-    password: '',
-    passwordView: false,
-    buttonLoader: true
-  }
-  login = (e) => {
+    email: ''
   }
   changeView = () => {this.setState({passwordView: true})}
   render() {
@@ -38,29 +33,14 @@ export default class LoginForm extends Component {
               leftIconContainerStyle={{padding: 5}}
               onChangeText={(email) => this.setState({email})}
               />
-          <Input
-              containerStyle={{width: 300}}
-              placeholder='Password'
-              leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
-              leftIconContainerStyle={{padding: 5}}
-              onChangeText={(password) => this.setState({password})}
-              />
-          <Input
-              containerStyle={{width: 300}}
-              placeholder='Confirm Password'
-              leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
-              leftIconContainerStyle={{padding: 5}}
-              onChangeText={(password) => this.setState({password})}
-              />
-
           {/* Email, password, password confirmation Inputs*/}   
           <Button
-              title="Sign Up"
+              title="Send Recovery Email"
               raised
               buttonStyle={{ backgroundColor: '#00A896' }}
-              containerStyle={{ width: 150, margin: 20, alignSelf: 'center'}}
-              onPress={() => this.props.navigation.navigate('Home')}
-              icon={<AntDesign name='checkcircle' size={20} style={styles.buttonIcon} color='#ffff'/>}
+              containerStyle={{ margin: 20, alignSelf: 'center'}}
+              onPress={() => this.props.navigate.goBack()}
+              icon={<MaterialIcons name='send' size={20} style={styles.buttonIcon} color='#ffff'/>}
               iconRight
               />
 
