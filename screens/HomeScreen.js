@@ -7,6 +7,11 @@ import {
 } from 'react-native';
 import NavBar from '../components/NavBar';
 import Wcarousel from '../components/Wcarousel';
+import MyCycles from '../components/MyCycles';
+import { ScrollView } from 'react-native-gesture-handler';
+import * as Font from 'expo-font';
+
+
 /*
 HomeScreen
 -------------
@@ -16,6 +21,24 @@ AppColors
 -------------------------
 User signs in with email and veridication code
 */
+
+let data = [
+  {
+    name: '#1',
+    time: '25',
+    type: 'W'
+  },
+  {
+    name: '#2',
+    time: '40',
+    type: 'W'
+  },
+  {
+    name: '#3',
+    time: '30',
+    type: 'D'
+  },
+];
 
 export default class HomeScreen extends Component {
   state={
@@ -37,11 +60,13 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.background}>
+        <NavBar />
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
-          <NavBar />
-          
+          <ScrollView>
+            <MyCycles />
+          </ScrollView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
-            <Wcarousel />
+            <Wcarousel data={data}/>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -53,15 +78,14 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: '#00A896',
-    alignItems: 'flex-start',
-
+    alignItems: 'center',
   },
   container: {
     flex: 1,
     backgroundColor: '#ffff',
-    alignItems: 'flex-start',
-    width: '100%',
-    marginBottom: 20
+    marginBottom: 20,
+    justifyContent: 'center'
+
 
   },
 });

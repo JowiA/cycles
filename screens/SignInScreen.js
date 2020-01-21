@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableHighlight } from 'react-native';
 import * as Font from 'expo-font';
-import { ScrollView } from 'react-native-gesture-handler';
 
 //Component Import
 import  LoginForm from '../components/LoginForm';
@@ -66,9 +65,12 @@ export default class SignInScreen extends React.Component {
             </View>
           </View>
 
-          <View style={{paddingBottom: 10}}>
-            <Text style={{fontSize: 13, color: '#565656'}}>Don't have an account? <Text style={{color: '#05668D'}}> Sign up</Text></Text>
-          </View>
+          <Text  onPress={() => this.props.navigation.navigate('SignUp')} style={{fontSize: 13, color: '#565656', paddingBottom: 10}}>
+              Don't have an account? 
+            <Text style={{color: '#05668D'}}>
+              Sign up
+            </Text></Text>
+
 
         </KeyboardAvoidingView>
         

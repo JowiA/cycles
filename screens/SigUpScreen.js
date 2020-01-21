@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Octicons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
@@ -22,8 +22,14 @@ export default class LoginForm extends Component {
   changeView = () => {this.setState({passwordView: true})}
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
 
+        {/* Go back button*/}
+        <View style={{flexDirection: "row", alignSelf: 'flex-start', marginTop:40 }}>
+          <AntDesign name='arrowleft' size={20} style={styles.buttonIcon} color='#05668D' />
+          <Text style={{fontSize: 13, color: '#05668D'}} onPress={()=>this.props.navigation.goBack()}>Go back</Text>
+        </View>
+        <View style={{marginTop: '60%'}}/>  
         {/* Email, password, password confirmation Inputs*/}
         <Input
             containerStyle={{width: 300}}
@@ -49,37 +55,25 @@ export default class LoginForm extends Component {
 
         {/* Email, password, password confirmation Inputs*/}   
         <Button
-            title="Login"
+            title="Sign Up"
             raised
             buttonStyle={{width: 150, backgroundColor: '#00A896'}}
-            containerStyle={{margin: 20}}
+            containerStyle={{margin: 20, justifyContent: 'center'}}
             onPress={() => this.props.navigation.navigate('Home')}
-            icon={<SimpleLineIcons name='login' size={20} style={styles.buttonIcon} color='#ffff' loading/>}
-            iconRight
-            />
-        <Button
-            title="Next"
-            raised
-            buttonStyle={{width: 150, backgroundColor: '#00A896'}}
-            containerStyle={{margin: 20}}
-            onPress={this.changeView}
-            icon={<AntDesign name='enter' size={20} style={styles.buttonIcon} color='#ffff' loading={true} />}
+            icon={<AntDesign name='checkcircle' size={20} style={styles.buttonIcon} color='#ffff'/>}
             iconRight
             />
 
-        {/* Footer Text*/}
-        <View style={{paddingBottom: 10}}>
-            <Text style={{fontSize: 13, color: '#05668D'}}>Forgot your password?</Text>
-          </View>
+        
 
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
   },
   buttonIcon: {
