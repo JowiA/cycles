@@ -32,6 +32,7 @@ export default class LoginForm extends Component {
               leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
               leftIconContainerStyle={{padding: 5}}
               onChangeText={(password) => this.setState({password})}
+              secureTextEntry={true}
               />
               :
             <Input

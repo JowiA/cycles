@@ -8,6 +8,8 @@ import {
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Card } from 'react-native-elements'
 import * as Font from 'expo-font';
+
+
 /*
 Wmachine
 -------------
@@ -19,6 +21,7 @@ export default class Wmachine extends Component {
   state={
     fontLoaded: null
   }
+
   async componentDidMount() {
     try{
       await Font.loadAsync({

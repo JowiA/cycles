@@ -10,7 +10,7 @@ import Wcarousel from '../components/Wcarousel';
 import MyCycles from '../components/MyCycles';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Font from 'expo-font';
-
+import firebase from 'firebase'
 
 /*
 HomeScreen
@@ -21,6 +21,7 @@ AppColors
 -------------------------
 User signs in with email and veridication code
 */
+
 
 let data = [
   {
@@ -43,6 +44,18 @@ let data = [
 export default class HomeScreen extends Component {
   state={
     fontLoaded: null
+  }
+  componentDidMount() {
+    const db = firebase.firestore(); 
+    let doc = db.collection('machines').doc('1');
+
+    let observer = doc.onSnapshot(docSnapshot => {
+    console.log(`Received doc snapshot: ${docSnapshot}`);
+    // ...
+    }, err => {
+    console.log(`Encountered error: ${err}`);
+    });
+
   }
   async componentDidMount() {
     try{
