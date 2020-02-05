@@ -5,12 +5,15 @@ import {
   View,
   KeyboardAvoidingView
 } from 'react-native';
+import * as Font from 'expo-font';
+import firebase from 'firebase'
+import { ScrollView } from 'react-native-gesture-handler';
 import NavBar from '../components/NavBar';
 import Wcarousel from '../components/Wcarousel';
 import MyCycles from '../components/MyCycles';
-import { ScrollView } from 'react-native-gesture-handler';
-import * as Font from 'expo-font';
-import firebase from 'firebase'
+import UserDisplay from '../components/UserDisplay';
+
+
 
 /*
 HomeScreen
@@ -43,20 +46,9 @@ let data = [
 
 export default class HomeScreen extends Component {
   state={
-    fontLoaded: null
+    fontLoaded: null,
   }
-  componentDidMount() {
-    const db = firebase.firestore(); 
-    let doc = db.collection('machines').doc('1');
 
-    let observer = doc.onSnapshot(docSnapshot => {
-    console.log(`Received doc snapshot: ${docSnapshot}`);
-    // ...
-    }, err => {
-    console.log(`Encountered error: ${err}`);
-    });
-
-  }
   async componentDidMount() {
     try{
       await Font.loadAsync({
@@ -71,11 +63,13 @@ export default class HomeScreen extends Component {
     }
   }
   render() {
+      var user = firebase.auth().currentUser;
     return (
       <View style={styles.background}>
         <NavBar />
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
           <ScrollView>
+            <UserDisplay name={firebase.auth().currentUser.email} navigation={this.props.navigation} />
             <MyCycles navigation={this.props.navigation}/>
           </ScrollView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
@@ -91,12 +85,9 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: '#00A896',
-    alignItems: 'center',
   },
   container: {
     flex: 1,
     backgroundColor: '#ffff',
-    marginBottom: 20,
-    justifyContent: 'center'
   },
 });

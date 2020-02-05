@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Octicons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
-import firebase from '../firebase';
+import firebase from 'firebase';
 
 /*
   **Prompts user for verification and requests verification code for login
@@ -15,10 +15,20 @@ export default class LoginForm extends Component {
     email: '',
     password: '',
     passwordView: false,
-    buttonLoader: true
+    buttonLoader: true,
+    errorMessage: null
   }
-  
+
+  handleLogin = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate('Home'))
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
+
   changeView = () => {this.setState({passwordView: true})}
+
   render() {
     return (
       <View style={styles.container}>
@@ -46,13 +56,14 @@ export default class LoginForm extends Component {
 
         {/* Input--> verify? login Button : enter button */}
         {
-          this.state.passwordView ?
+          this.state.email != '' ?
+            this.state.passwordView ? 
             <Button
               title="Login"
               raised
               buttonStyle={{width: 150, backgroundColor: '#00A896'}}
               containerStyle={{margin: 20}}
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={this.handleLogin}
               icon={<SimpleLineIcons name='login' size={20} style={styles.buttonIcon} color='#ffff' loading/>}
               iconRight
               />
@@ -66,8 +77,10 @@ export default class LoginForm extends Component {
               icon={<AntDesign name='enter' size={20} style={styles.buttonIcon} color='#ffff' loading={true} />}
               iconRight
               />
+          :
+          null
         }
-        <View style={{paddingBottom: 10}}>
+        <View style={{paddingBottom: 10, paddingTop: 10}}>
             <Text style={{fontSize: 13, color: '#05668D'}} onPress={() => this.props.navigation.navigate('Recovery')}>Forgot your password?</Text>
           </View>
 
