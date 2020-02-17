@@ -1,0 +1,125 @@
+import React from 'react';
+import { StyleSheet, Text, View, Vibration, ActivityIndicator } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import * as Permissions from 'expo-permissions';
+import { Button, Icon, Overlay, PricingCard  } from 'react-native-elements';
+import firebase from 'firebase';
+
+
+const stock = [111', 'Gran #W2', 'Gran #W3', 'Gran #D1', 'Gran #D2', 'Gran #D3'];
+
+export default class ScannerScreen extends React.Component {
+  state = {
+    hasCameraPermission: null,
+    barcodeData: null,
+    barcodeType: null,
+    overlay: false,
+  }
+
+  async componentDidMount() {
+    let { status } = await Permissions.getAsync(Permissions.CAMERA);
+    if (status !== 'granted') {
+      this.setState({ hasCameraPermission: status === 'granted' });
+    }
+  }
+    
+
+  handleBarCodeScanned = ({ type, data }) => {
+    Vibration.vibrate(1000);
+    stock.includes(data) ?
+    this.setState({
+     barcodeType : type,
+     barcodeData : data,
+     overlay: true,
+    })
+    :
+    null
+  };
+
+
+  toggleOverlayOff = () => this.setState({ overlay: false })
+
+
+  render() {
+    const { hasCameraPermission } = this.state;
+
+    if (hasCameraPermission === null) {
+      return <View style={styles.container}><ActivityIndicator size={200} color="#00A896" /></View>;
+    }
+    if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
+
+    const { navigation } = this.props;
+    const email = navigation.getParam('email');
+
+    return (
+      <View style={{ flex: 1 }}>
+        <BarCodeScanner
+          onBarCodeScanned={this.handleBarCodeScanned}
+          style={StyleSheet.absoluteFill}
+        />
+        
+
+        {/*Start Overlay Pop Up*/}
+        <Overlay
+          isVisible={this.state.overlay}
+          windowBackgroundColor="rgba(255, 255, 255, .6)"
+          width="auto"
+          height="auto"
+          onBackdropPress={this.toggleOverlayOff}
+          >
+          <PricingCard
+            color="#79BA9C"
+            title={this.state.barcodeData}
+            info={['Is this your machine?']}
+            button={{ title: 'Start', icon: 'play-circle-outline' }}
+            onButtonPress={() => {
+                firebase.database().ref('/pending/').push({ machineID: this.state.barcodeData, user: displayName})
+                this.props.navigation.navigate('Home', {email: email})
+                }
+            }
+            />
+        </Overlay>
+
+
+        {/*Close Scanner Button => Returns user to home screen*/}
+        <View style={styles.tabBarInfoContainer}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+                <Button
+                  icon={<Icon  name='close' type='material-community' color='#FF686B'/>}
+                  title='Cancel'
+                  borderRadius={1}
+                  backgroundColor='#c0392b'
+                  onPress={() => this.props.navigation.navigate('HomeScreen', {displayName: displayName})}
+                  style={{ width: 150, margin: 10}}
+                  rounded
+                  />
+            </View>
+        </View>
+        
+      </View>
+    );
+  }
+
+  start = () => {
+    firebase.database().ref('/pending/' + displayName).set({ machineID: this.state.barcodeData,})
+    firebase.database().ref('/pending/' + displayName).set({ machineID: this.state.barcodeData,})}
+}
+
+const styles = StyleSheet.create({
+    tabBarInfoContainer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 50,
+    },
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+  });

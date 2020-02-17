@@ -36,6 +36,7 @@ export default class Wmachine extends Component {
     }
   }
   render() {
+    let totalTime = this.props.name.includes('Washer') ? 30 : 60;
     return (
       <Card containerStyle={styles.container}>
         <View style={{flexDirection: 'row'}}>
@@ -43,8 +44,8 @@ export default class Wmachine extends Component {
             <AnimatedCircularProgress
              size={50}
              width={5}
-             fill={70}
-             tintColor={this.props.type == 'W' ? "#1CA3EC" : "#E95364"}
+             fill={100}
+             tintColor={this.props.name.includes('Washer') ? "#1CA3EC" : "#E95364"}
              onAnimationComplete={() => console.log('onAnimationComplete')}
              backgroundColor="#3d5875" 
             />
@@ -57,7 +58,7 @@ export default class Wmachine extends Component {
                   <Text>Time: {this.props.time} minutes</Text>
                   {/* Machine type */}
                   <Text style={{ fontFamily: 'OpenSans-Regular', fontSize: 12, color: '#565656'}}>
-                    {this.props.type == 'W' ? "Washer" : "Dryer"}
+                    {this.props.name.includes('Washer') ? 'Washer' : 'Dryer'}
                   </Text>
                 </View>  
               ):null

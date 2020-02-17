@@ -14,8 +14,6 @@ export default class LoginForm extends Component {
   state={
     email: '',
     password: '',
-    passwordView: false,
-    buttonLoader: true,
     errorMessage: null
   }
 
@@ -23,7 +21,7 @@ export default class LoginForm extends Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('Home'))
+      .then(user => {this.props.navigation.navigate(Home, {email: user.email})})
       .catch(error => this.setState({ errorMessage: error.message }))
   }
 
@@ -34,52 +32,38 @@ export default class LoginForm extends Component {
       <View style={styles.container}>
 
         {/* Input--> verify? email input : verification code input*/}
-        {
-          this.state.passwordView ?
-            <Input
-              containerStyle={{width: 300}}
-              placeholder='Password'
-              leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
-              leftIconContainerStyle={{padding: 5}}
-              onChangeText={(password) => this.setState({password})}
-              secureTextEntry={true}
-              />
-              :
-            <Input
-              containerStyle={{width: 300}}
-              placeholder='Email'
-              leftIcon={<Octicons name='mail' size={30} color='#00A896'/>}
-              leftIconContainerStyle={{padding: 5}}
-              onChangeText={(email) => this.setState({email})}
-              />
-        }
+        <Input
+          containerStyle={{width: 300}}
+          placeholder='Email'
+          leftIcon={<Octicons name='mail' size={30} color='#00A896'/>}
+          leftIconContainerStyle={{padding: 5}}
+          onChangeText={(email) => this.setState({email})}
+          value={this.state.email}
+          />
+        <Input
+          containerStyle={{width: 300}}
+          placeholder='Password'
+          leftIcon={<SimpleLineIcons name='lock' size={30} color='#00A896'/>}
+          leftIconContainerStyle={{padding: 5}}
+          onChangeText={(password) => this.setState({password})}
+          secureTextEntry={true}
+          value={this.state.password}
+        />
 
         {/* Input--> verify? login Button : enter button */}
-        {
-          this.state.email != '' ?
-            this.state.passwordView ? 
-            <Button
-              title="Login"
-              raised
-              buttonStyle={{width: 150, backgroundColor: '#00A896'}}
-              containerStyle={{margin: 20}}
-              onPress={this.handleLogin}
-              icon={<SimpleLineIcons name='login' size={20} style={styles.buttonIcon} color='#ffff' loading/>}
-              iconRight
-              />
-              :
-            <Button
-              title="Next"
-              raised
-              buttonStyle={{width: 150, backgroundColor: '#00A896'}}
-              containerStyle={{margin: 20}}
-              onPress={this.changeView}
-              icon={<AntDesign name='enter' size={20} style={styles.buttonIcon} color='#ffff' loading={true} />}
-              iconRight
-              />
-          :
-          null
-        }
+
+        <Button
+          title="Login"
+          raised
+          buttonStyle={{width: 150, backgroundColor: '#00A896'}}
+          containerStyle={{margin: 20}}
+          onPress={this.handleLogin}
+          icon={<SimpleLineIcons name='login' size={20} style={styles.buttonIcon} color='#ffff' loading/>}
+          iconRight
+          disabled={(this.state.email && this.state.password) == ''  ? true : false}
+          />
+        
+        {/* Forgot Password Recovery */}
         <View style={{paddingBottom: 10, paddingTop: 10}}>
             <Text style={{fontSize: 13, color: '#05668D'}} onPress={() => this.props.navigation.navigate('Recovery')}>Forgot your password?</Text>
           </View>

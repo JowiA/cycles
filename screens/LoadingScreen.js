@@ -9,13 +9,15 @@ export default class LoadingScreen extends React.Component {
     }
 
     checkifLoggedIn = () => {
-        firebase.auth().onAuthStateChanged(user => {
-            (user) ? 
-            this.props.navigation.navigate('Home')
-            :
-            this.props.navigation.navigate('SignIn')
-        })
-    }
+      firebase.auth().onAuthStateChanged(user => {
+          (user) ? 
+          this.props.navigation.navigate('Home', {
+            email: user.email,
+          })
+          :
+          this.props.navigation.navigate('SignIn')
+      })
+  }
   render() {
     return (
       <View style={styles.container}>

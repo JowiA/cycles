@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Octicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
-
+import firebase from 'firebase';
 /*
   **Prompts user for verification and requests verification code for login
   input: email address, verification code
@@ -14,6 +14,13 @@ export default class RecoveryScreen extends Component {
     email: ''
   }
   changeView = () => {this.setState({passwordView: true})}
+  sendVerification = () => {
+    firebase
+      .auth()
+      .sendPasswordResetEmail(this.state.email)
+      .then(() => this.props.navigation.navigate('SignIn'))
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
   render() {
     return (
       <View style={{flex: 1, justifyContent: 'center'}}>
@@ -39,7 +46,8 @@ export default class RecoveryScreen extends Component {
               raised
               buttonStyle={{ backgroundColor: '#00A896' }}
               containerStyle={{ margin: 20, alignSelf: 'center'}}
-              onPress={() => this.props.navigate.goBack()}
+              onPress={this.sendVerification}
+              disabled={this.state.email ? false: true}
               icon={<MaterialIcons name='send' size={20} style={styles.buttonIcon} color='#ffff'/>}
               iconRight
               />

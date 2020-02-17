@@ -6,12 +6,13 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import * as Font from 'expo-font';
-import firebase from 'firebase'
+import firebase from 'firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 import NavBar from '../components/NavBar';
 import Wcarousel from '../components/Wcarousel';
 import MyCycles from '../components/MyCycles';
 import UserDisplay from '../components/UserDisplay';
+
 
 
 
@@ -47,45 +48,41 @@ let data = [
 export default class HomeScreen extends Component {
   state={
     fontLoaded: null,
+    machines: []
   }
 
   async componentDidMount() {
-    try{
-      await Font.loadAsync({
-        'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
-        'lilyscriptone': require('../assets/fonts/LilyScriptOne-Regular.ttf'),
-        'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
-      });
-      this.setState({ fontLoaded: true });
-      }
-    catch(err){
-      console.log(err);
-    }
+    await Font.loadAsync({
+      'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+      'lilyscriptone': require('../assets/fonts/LilyScriptOne-Regular.ttf'),
+      'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
+    });
+    this.setState({ fontLoaded: true });
   }
+  
+
+  
+
+
   render() {
-      var user = firebase.auth().currentUser;
+    const { navigation } = this.props;
+    const email = navigation.getParam('email');
     return (
-      <View style={styles.background}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <NavBar />
-        <KeyboardAvoidingView behavior='padding' style={styles.container}>
-          <ScrollView>
-            <UserDisplay name={firebase.auth().currentUser.email} navigation={this.props.navigation} />
-            <MyCycles navigation={this.props.navigation}/>
+        <UserDisplay email={email} navigation={this.props.navigation} />
+          <ScrollView >
+            <MyCycles navigation={this.props.navigation} email={email}/>
           </ScrollView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
-            <Wcarousel data={data}/>
+            <Wcarousel />
           </View>
-        </KeyboardAvoidingView>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#00A896',
-  },
   container: {
     flex: 1,
     backgroundColor: '#ffff',
