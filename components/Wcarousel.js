@@ -43,10 +43,6 @@ export default class Wcarousel extends Component {
         let machines = snapshot.val();
         let newState = [];
         for (let machine in machines) {
-          machines[machine].machine.includes('Washer') ? 
-            this.setState({washersBusy: this.state.washersBusy + 1}) 
-            : 
-            this.setState({dryersBusy: this.state.dryersBusy + 1}) 
           newState.push({
             machine: machines[machine].machine, 
             user: machines[machine].user,
