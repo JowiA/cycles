@@ -35,27 +35,36 @@ export default class Wcarousel extends Component {
         'lilyscriptone': require('../assets/fonts/LilyScriptOne-Regular.ttf'),
         'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
       });
-      this.setState({ fontLoaded: true });
-
+      this.setState({ fontLoaded: true }); 
       //get all machines from db
       const machineRef = firebase.database().ref('cycles');
       machineRef.on('value', (snapshot) => {
         let machines = snapshot.val();
         let newState = [];
+        //push to new state
         for (let machine in machines) {
+          const washersBusy = 0;
+          const dryersBusy = 0;
+          machines[machine].machine.includes('Washer') ? this.setState({washersBusy: washersBusy + 1 }) : this.setState({dryersBusy: dryersBusy + 1 })
           newState.push({
             machine: machines[machine].machine, 
             user: machines[machine].user,
             time: machines[machine].time
           })
         }
+        //Push new machines to state
         this.setState({
-          machines: newState
+          machines: newState,
         });
       })
     }
+
     componentWillUnmount() {
-      this.setState({machines: []})
+      this.setState({
+        machines: [],
+        washersBusy: 0,
+        dryersBusy: 0
+      })
     }
 
     
@@ -74,11 +83,11 @@ export default class Wcarousel extends Component {
                 </Text>
                 <View style={{ fontSize: 10, textAlign: 'left', marginLeft: 10, color: '#565656', marginTop: 10, flexDirection: 'row' }}>
                   <View style={{flexDirection: 'row'}}>
-                    <Badge value={this.state.washersBusy + '/5'} status="success" />
+                    <Badge value={5 - this.state.washersBusy + '/5'} status="success" />
                     <Text style={{color: '#565656', marginLeft: 10}}>Washers Free</Text>
                   </View>
                   <View style={{flexDirection: 'row', marginLeft: 10}}>
-                    <Badge  value={this.state.dryersBusy + '/5'} status="error" />
+                    <Badge  value={5 - this.state.dryersBusy + '/5'} status="error" />
                     <Text style={{color: '#565656', marginLeft: 10}}>Dryers Free</Text>
                   </View>
                   
@@ -96,6 +105,7 @@ export default class Wcarousel extends Component {
              <Wmachine name={item.machine} time={item.time} />
             )}
           />
+
         </View>
       );
     };

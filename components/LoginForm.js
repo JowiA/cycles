@@ -22,7 +22,10 @@ export default class LoginForm extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {this.props.navigation.navigate(Home, {email: user.email})})
-      .catch(error => this.setState({ errorMessage: error.message }))
+      .catch(error => 
+        this.setState({ errorMessage: error.message }), 
+        setTimeout(() => this.setState({ errorMessage: null }), 3000)
+      )
   }
 
   changeView = () => {this.setState({passwordView: true})}
@@ -31,6 +34,8 @@ export default class LoginForm extends Component {
     return (
       <View style={styles.container}>
 
+        {/* Error */}
+        {this.state.errorMessage ? <Text style={{marginBottom: 10, color: 'red'}}>{this.state.errorMessage}</Text> : null }
         {/* Input--> verify? email input : verification code input*/}
         <Input
           containerStyle={{width: 300}}
@@ -51,7 +56,7 @@ export default class LoginForm extends Component {
         />
 
         {/* Input--> verify? login Button : enter button */}
-
+        
         <Button
           title="Login"
           raised
