@@ -24,7 +24,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yetu.cycles",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.yetu.cycles",
+      "versionCode": 1
     }
   }
 }
