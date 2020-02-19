@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Linking
 } from 'react-native';
 import * as Font from 'expo-font';
 import { Overlay, ListItem, Avatar, Divider, Button } from 'react-native-elements';
@@ -62,6 +63,7 @@ export default class UserDisplay extends Component {
 
               {/* options */}
               <View style={{marginTop: 50}}>
+                
                 <Button
                   title="Logout"
                   raised
@@ -70,6 +72,8 @@ export default class UserDisplay extends Component {
                   icon={<AntDesign name='logout' size={20} style={styles.buttonIcon} color='#ffff' loading={true} />}
                   iconRight
                 />
+
+                <Text  onPress={() => Linking.openURL('https://firebasestorage.googleapis.com/v0/b/cycles-v1.appspot.com/o/Yetu%20Privacy%20Policy.pdf?alt=media&token=479e9b6c-f8fb-4c48-a7d3-37c8e3eb5c3d')} style={{marginTop: 50, textAlign: "center", color: "#3b5998"}}>View our Privacy Policy</Text>
               </View> 
             </View>
           </Overlay>
