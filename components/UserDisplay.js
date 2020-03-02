@@ -73,7 +73,7 @@ export default class UserDisplay extends Component {
                   iconRight
                 />
 
-                <Text  onPress={() => Linking.openURL('https://firebasestorage.googleapis.com/v0/b/cycles-v1.appspot.com/o/Yetu%20Privacy%20Policy.pdf?alt=media&token=479e9b6c-f8fb-4c48-a7d3-37c8e3eb5c3d')} style={{marginTop: 50, textAlign: "center", color: "#3b5998"}}>View our Privacy Policy</Text>
+                <Text  onPress={() => Linking.openURL('https://cycles.flycricket.io/privacy.html')} style={{marginTop: 50, textAlign: "center", color: "#3b5998"}}>Privacy Policy</Text>
               </View> 
             </View>
           </Overlay>

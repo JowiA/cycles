@@ -15,7 +15,7 @@ admin.initializeApp();
             var time = machine.time-1;
             setTimeout(() => {
                 return admin.database().ref('/cycles/' + machine.machine + '/time' ).set(time)
-            }, 10000);           
+            }, 60000);           
         }
         else if (machine.time === 0) {
              return admin.database().ref('/cycles/' + machine.machine ).remove() 

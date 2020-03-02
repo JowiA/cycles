@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.yetu.cycles",
-      "versionCode": 1
+      "versionCode": 3
     }
   }
 }

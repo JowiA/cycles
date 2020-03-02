@@ -27,23 +27,6 @@ User signs in with email and veridication code
 */
 
 
-let data = [
-  {
-    name: '#1',
-    time: '25',
-    type: 'W'
-  },
-  {
-    name: '#2',
-    time: '40',
-    type: 'W'
-  },
-  {
-    name: '#3',
-    time: '30',
-    type: 'D'
-  },
-];
 
 export default class HomeScreen extends Component {
   state={
